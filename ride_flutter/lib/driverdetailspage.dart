@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:flutter/material.dart';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:ride_flutter/passengerlistview.dart';
 
 
 class DriverDetailsPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class DriverDetailsPage extends StatelessWidget {
                     Text(
                       'Ride Share App \n',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blueGrey,
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -48,12 +49,18 @@ class DriverDetailsPage extends StatelessWidget {
               width: 400.0,
               height: 600.0,
               child: Card(
+                shape: RoundedRectangleBorder( //<-- SEE HERE
+                  side: BorderSide(
+                    color: Colors.blueGrey,
+                  ),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
                 child: ListTile(
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'CarRide',
+                        'CarRide \n',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -180,12 +187,12 @@ class DriverDetailsPage extends StatelessWidget {
 
                       SizedBox(height: 16.0),
                       ElevatedButton(
-                        child: Text('Next'),
+                        child: Text('Continue'),
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DriverDetailsPage(),
+                              builder: (context) => PassengerListView(),
                             ),
                           );
                         },

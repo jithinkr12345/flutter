@@ -62,6 +62,12 @@ class RideShareHeader extends StatelessWidget {
               width: 400.0, // Adjust the width as needed
               height: 600.0, // Adjust the height as needed
               child: Card(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.blueGrey,
+                  ),
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
                 child: ListTile(
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +103,7 @@ class RideShareHeader extends StatelessWidget {
                       BulletSpan(text: 'Must have valid DL \n'),
                       SizedBox(height: 16.0),
                       ElevatedButton(
-                        child: Text('Next'),
+                        child: Text('Continue'),
                         onPressed: () {
                           Navigator.push(
                             context,
