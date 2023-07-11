@@ -1,30 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ride_flutter/welcome.dart';
-import 'driverdetailspage.dart';
+import 'package:ride_flutter/driverdetailspage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RoadRunner',
-      theme: ThemeData(
-        // Your theme data
-      ),
-      home: Welcome(),
-      // home: RideShareHeader(),
-    );
-  }
-}
-
-class RideShareHeader extends StatelessWidget {
-  const RideShareHeader({Key? key}) : super(key: key);
+class RideHeader extends StatelessWidget {
+  const RideHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +104,7 @@ class RideShareHeader extends StatelessWidget {
     );
   }
 }
+
 
 class BulletSpan extends StatelessWidget {
   final String text;
