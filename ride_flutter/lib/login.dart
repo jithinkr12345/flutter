@@ -1,9 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:ride_flutter/main.dart';
 import 'package:ride_flutter/register.dart';
+import 'package:http/http.dart' as http;
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<Login>{
+
+  final _usertextController = TextEditingController();
+  final _passwordtextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,8 @@ class Login extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 40,),
-              Image.asset('images/logo.png'),
+              Image.asset('images/logo.png',
+              height: 100,),
               SizedBox(height: 20,),
               Text('Login Page',
                 style: TextStyle(
@@ -56,6 +69,7 @@ class Login extends StatelessWidget {
                     Container(
                       width: 250,
                       child: TextField(
+                        controller: _usertextController,
                         decoration: InputDecoration(
                             labelText: 'Email'
                         ),
@@ -65,6 +79,7 @@ class Login extends StatelessWidget {
                     Container(
                       width: 250,
                       child: TextField(
+                        controller: _passwordtextController,
                         decoration: InputDecoration(
                             labelText: 'Password'
                         ),
@@ -75,7 +90,13 @@ class Login extends StatelessWidget {
                         child: ElevatedButton(
                           child: const Text('Login',
                           ),
-                          onPressed: (){
+                          onPressed: () async {
+                            var url = "http://127.0.0.1:8000/api/users/login";
+                            final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json'}, body: json.encode({
+                              "username": _usertextController.text,
+                              "password": _passwordtextController.text
+                            }));
+                            print(json.decode(response.body));
                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=> RideShareHeader()));
                           },
                           style: ElevatedButton.styleFrom(

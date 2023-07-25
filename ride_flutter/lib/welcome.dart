@@ -25,9 +25,11 @@ class Welcome extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 80,),
-              Image.asset('images/logo.png'),
-              SizedBox(height: 25,),
+              SizedBox(height: 50,),
+              Image.asset('images/logo.png',
+              height: 100,
+              ),
+              SizedBox(height: 20,),
               Text('Welcome to RoadRunner',
                 style: TextStyle(
                   color: Colors.white,
