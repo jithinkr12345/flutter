@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ride_flutter/main.dart';
 import 'package:ride_flutter/register.dart';
+import 'package:ride_flutter/driverdetailspage.dart';
 import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
@@ -113,7 +114,7 @@ class _LoginPageState extends State<Login>{
                             style: TextStyle(fontStyle: FontStyle.italic),
                           ),
                           onPressed: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Register()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DriverDetailsPage()));
                           },
                         ),
                       ),

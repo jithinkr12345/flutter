@@ -1,203 +1,92 @@
-import 'dart:html';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:file_picker/file_picker.dart';
-import 'package:ride_flutter/passengerlistview.dart';
-
 
 class DriverDetailsPage extends StatelessWidget {
   final List<String> dropdownItems = ['Upload your photo'];
 
   @override
   Widget build(BuildContext context) {
+    // Rest of your existing code...
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Driver Details'),
-      ),
+      // Your existing code...
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 80.0,
-              color: Colors.blue,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Ride Share App \n',
-                      style: TextStyle(
-                        color: Colors.blueGrey,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                      ),
-                      onPressed: null, // Replace with your onPressed logic
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Your existing code...
             Container(
               width: 400.0,
               height: 600.0,
               child: Card(
-                shape: RoundedRectangleBorder( //<-- SEE HERE
-                  side: BorderSide(
-                    color: Colors.blueGrey,
-                  ),
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
+                // Your existing code...
                 child: ListTile(
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'CarRide \n',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // Your existing code...
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'First Name'),
                       ),
-                      Text(
-                        'Welcome User \n',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.black,
-                        ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Last Name'),
                       ),
-                      Text(
-                        'Required Step \n',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.black,
-                        ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Age'),
+                        keyboardType: TextInputType.number,
                       ),
-                      Text(
-                        'Here\'s what you need to do to set up your account \n',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.black,
-                        ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Date of Birth (DOB)'),
                       ),
-                      SizedBox(height: 16.0),
-                      DropdownButton<String>(
-                        items: dropdownItems.map((String item) {
-                          return DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(item),
-                          );
-                        }).toList(),
-                        onChanged: (String? value) {
-                          // Handle dropdown value change
-                        },
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Email'),
+                        keyboardType: TextInputType.emailAddress,
                       ),
-                      SizedBox(height: 16.0),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Phone'),
+                        keyboardType: TextInputType.phone,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'License Number'),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Car Year'),
+                        keyboardType: TextInputType.number,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Car Model'),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Car Name'),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Car Number'),
+                      ),
+                      // Your existing code...
                       ElevatedButton(
                         child: Text('Upload Photo'),
                         onPressed: () async {
-                          FilePickerResult? result = await FilePicker.platform
-                              .pickFiles();
-
-                          if (result != null) {
-                            PlatformFile file = result.files.first;
-
-                            List<File> files = result.files.cast<File>();
-                            // Uncomment this code when connect with database
-
-                            //   for (var file in files) {
-                          //     String fileName = file.name;
-                          //     // String filePath = file.path;
-                          //     // int fileSize = file.size;
-                          //     // String fileExtension = file.extension;
-                          //
-                          //     // Add your logic to upload the file to the server or perform any other operations
-                          //   }
-                          //   else
-                          //   {
-                          //   // User canceled the file picker
-                          // }
-                        }
-                        }
-                       ),
-
-                      SizedBox(height: 16.0),
-                      ElevatedButton(
-                          child: Text('Upload Drivers License'),
-                          onPressed: () async {
-                            FilePickerResult? result = await FilePicker.platform
-                                .pickFiles();
-
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-
-                              List<File> files = result.files.cast<File>();
-                              // Uncomment this code when connect with database
-
-                              //   for (var file in files) {
-                            //     String fileName = file.name;
-                            //     String filePath = file.path;
-                            //     int fileSize = file.size;
-                            //     String fileExtension = file.extension;
-                            //
-                            //     // Add your logic to upload the file to the server or perform any other operations
-                            //   }
-                            // else
-                            // {
-                            //   // User canceled the file picker
-                            // }
-                          }
-                            }
+                          // Your existing code...
+                        },
                       ),
-                      SizedBox(height: 16.0),
                       ElevatedButton(
-                          child: Text('Upload Vehicle Insurance'),
-                          onPressed: () async {
-                            FilePickerResult? result = await FilePicker.platform
-                                .pickFiles();
-
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-
-                              List<File> files = result.files.cast<File>();
-                              // Uncomment this code when connect with database
-
-                            //   for (var file in files) {
-                            //     String fileName = file.name;
-                            //     String filePath = file.path;
-                            //     int fileSize = file.size;
-                            //     String fileExtension = file.extension;
-                            //
-                            //     // Add your logic to upload the file to the server or perform any other operations
-                            //   }
-                            // else
-                            // {
-                            //   // User canceled the file picker
-                            // }
-                          }
-                            }
+                        child: Text('Upload Drivers License'),
+                        onPressed: () async {
+                          // Your existing code...
+                        },
                       ),
-
-                      SizedBox(height: 16.0),
+                      ElevatedButton(
+                        child: Text('Upload Vehicle Insurance'),
+                        onPressed: () async {
+                          // Your existing code...
+                        },
+                      ),
                       ElevatedButton(
                         child: Text('Continue'),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PassengerListView(),
-                            ),
-                          );
+                          // Your existing code...
                         },
                       ),
-    
+                      // Your existing code...
                     ],
                   ),
                 ),
