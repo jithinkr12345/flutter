@@ -27,8 +27,21 @@ import 'package:http/http.dart' as http;
 // }
 
 class PassengerDetailsPage extends StatefulWidget {
-  final String passengerName;
-  const PassengerDetailsPage({required this.passengerName});
+  final String ride_id;
+  final String pickup;
+  final String dropoff;
+  final String amount;
+  final String pay_type;
+  final String user_name;
+
+  const PassengerDetailsPage({
+    required this.ride_id,
+    required this.pickup,
+    required this.dropoff,
+    required this.amount,
+    required this.pay_type,
+    required this.user_name
+  });
 
   @override
   State<PassengerDetailsPage> createState() => _PassengerDetailsPageState();
@@ -57,9 +70,65 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> with Single
       ),
       body: Column(
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.all(8.0),
+            child: Text('Pick up Location: '),
+            ),
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text(widget.pickup),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text('Drop Off Location: '),
+            ),
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text(widget.dropoff),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text('Amount: '),
+            ),
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text(widget.amount),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text('Pay Mode: '),
+            ),
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text(widget.pay_type),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text('Rider Name: '),
+            ),
+            Padding(padding: EdgeInsets.all(8.0),
+              child: Text(widget.user_name),
+            ),
+          ],
+        ),
         ElevatedButton(onPressed: (){
           _trackme();
-        }, child: Text('Track ME'))
+          _update_riderequest();
+        }, child: Text('Accept Ride'))
       ],),);
   }
   Future<void> _trackme()async{
@@ -69,8 +138,23 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> with Single
       print("Latitude: ${position.latitude}");
       print("Longitude: ${position.longitude}");
       var url = "http://127.0.0.1:8000/api/rider/map";
-      final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Authorization': 'token 2a944a92907736cb09fa35fac35b906f536a17fc'}, body: json.encode({'driver_update_id': 1, 'driver_id': 1, 'longitude': position.latitude, 'latitude': position.longitude}));
-
+      final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST'}, body: json.encode({'driver_update_id': 1, 'driver_id': 1, 'longitude': position.longitude, 'latitude': position.latitude}));
     });
+  }
+
+  Future<void> _update_riderequest()async{
+    var update_url = "http://localhost:8000/api/rider/request";
+    final update_response = await http.put(Uri.parse(update_url),headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST'}, body: json.encode({
+      "ride_id": widget.ride_id,
+      "amount": widget.amount,
+      "pickup": widget.pickup,
+      "dropoff": widget.dropoff,
+      "pay_type": widget.pay_type,
+      "state": "running",
+      "driver_id": 1,
+      "username": widget.user_name,
+    }));
+    print("rrrrrrrrrrrrrrrrrrr");
+    print(json.decode(update_response.body));
   }
 }

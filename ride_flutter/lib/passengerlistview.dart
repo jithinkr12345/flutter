@@ -1,7 +1,63 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import './passengerdetailspage.dart';
 
-class PassengerListView extends StatelessWidget {
+class RiderRequest{
+  late String ride_id;
+  late String pickup;
+  late String dropoff;
+  late String amount;
+  late String pay_type;
+  late String user_name;
+
+  RiderRequest({
+    required this.ride_id,
+    required this.pickup,
+    required this.dropoff,
+    required this.amount,
+    required this.pay_type,
+    required this.user_name
+  });
+
+  factory RiderRequest.fromJson(Map<String, dynamic> json) => RiderRequest(
+    ride_id: json["ride_id"],
+    pickup: json["pickup"],
+    dropoff: json["dropoff"],
+    amount: json["amount"],
+    pay_type: json["pay_type"],
+    user_name: json["user_name"],
+  );
+}
+
+Future<List<RiderRequest>> getRidersList() async {
+  final response = await http.get(
+    Uri.parse('http://localhost:8000/api/rider/request'),
+  );
+  if (response.statusCode == 200) {
+    var jsonResponse = json.decode(response.body);
+    print("123123123");
+    print(jsonResponse);
+    List<RiderRequest> riders = [];
+    for (var u in jsonResponse) {
+      print("3333333333333333333311131");
+      print(u);
+      RiderRequest rider = RiderRequest(ride_id: u['ride_id'].toString(), pickup: u['from_loc'], dropoff: u['to_loc'], amount: u['price'], pay_type: u['pay_type'], user_name: u['user_id'].toString());
+      riders.add(rider);
+    }
+    print("3333333333333333333333333");
+    print(riders);
+    return riders;
+  } else {
+    throw Exception('Failed to load post');
+  }
+}
+
+class PassengerListView extends StatefulWidget {
+  @override
+  State<PassengerListView> createState() => _PassengerListViewState();
+}
+class _PassengerListViewState extends State<PassengerListView> with SingleTickerProviderStateMixin {
   final List<String> passengerList = [
     '01/08 12:00  Priyanka   501 GreenBrook Dr   25',
     '02/18 13:00  Libron   173 King Street  24',
@@ -13,6 +69,30 @@ class PassengerListView extends StatelessWidget {
     '07/22 09:00  Nupur  173 King Street  13',
     '08/25 07:00  Jitin  Westmount Village  24',
   ];
+  late Future<List<RiderRequest>> riders;
+
+  @override
+  void initState() {
+    super.initState();
+    // Make the API call here
+    riders = getRidersList();
+    print("hellooooo");
+    print(riders);
+  }
+  //
+  // Future<void> fetchData() async {
+  //   try {
+  //     // Replace "YOUR_API_URL" with the actual URL of your API
+  //     var url = "http://localhost:8000/api/rider/request";
+  //     final response = await http.get(Uri.parse(url),headers: {'Content-Type': 'application/json'});
+  //     if (response.statusCode == 200) {
+  //       print(json.decode(response.body));
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,30 +100,45 @@ class PassengerListView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Driver Details'),
       ),
-      body: ListView.builder(
-
-        itemCount: passengerList.length,
-        itemBuilder: (context, index) {
-          String passengerName = passengerList[index];
-          return ListTile(
-            leading: Icon(Icons.person),
-            title: Text(passengerName),
-            subtitle: Text('Passenger Details'),
-            onTap: () {
-              // Handle the onTap event for each list item
-              // For example, navigate to a passenger details page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PassengerDetailsPage(
-                    passengerName: passengerName,
-                  ),
-                ),
-              );
-            },
-          );
-        },
-
+      body: Center(
+        child: FutureBuilder<List<RiderRequest>>(
+            future: riders,
+            builder: (context, snapshot) {
+              print("dddddddddddd");
+              print(snapshot);
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(snapshot.data![index].pickup),
+                        subtitle: Text(snapshot.data![index].dropoff),
+                        trailing: Text('\$${snapshot.data![index].amount}'),
+                        onTap: () {
+                          // Handle the onTap event for each list item
+                          // For example, navigate to a passenger details page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PassengerDetailsPage(
+                                ride_id: snapshot.data![index].ride_id,
+                                pickup: snapshot.data![index].pickup,
+                                dropoff: snapshot.data![index].dropoff,
+                                amount: snapshot.data![index].amount,
+                                pay_type: snapshot.data![index].pay_type,
+                                user_name: snapshot.data![index].user_name
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    });
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else {
+                return CircularProgressIndicator();
+              }
+            }),
       ),
     );
   }
