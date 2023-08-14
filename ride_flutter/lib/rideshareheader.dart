@@ -7,7 +7,14 @@ class RideHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Hello Driver'),
+          ),
+        ],
+      ),
       body: SingleChildScrollView( // Wrap the Column with SingleChildScrollView
         child: Column(
           children: [

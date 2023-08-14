@@ -1,9 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
 import 'package:ride_flutter/main.dart';
+import 'package:ride_flutter/passengerlistview.dart';
 import 'package:ride_flutter/register.dart';
 import 'package:http/http.dart' as http;
+import 'auth.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -79,6 +83,7 @@ class _LoginPageState extends State<Login>{
                     Container(
                       width: 250,
                       child: TextField(
+                        obscureText: true,
                         controller: _passwordtextController,
                         decoration: InputDecoration(
                             labelText: 'Password'
@@ -97,8 +102,18 @@ class _LoginPageState extends State<Login>{
                               "username": _usertextController.text,
                               "password": _passwordtextController.text
                             }));
-                            print(json.decode(response.body));
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> RideShareHeader()));
+                            final result = json.decode(response.body);
+                            print(result);
+                            print(result['jwt']);
+                            print(result.containsKey('jwt'));
+                            if(! result.containsKey('jwt')){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Login()));
+                            }
+                            final storage = FlutterSecureStorage();
+                            await storage.write(key: 'jwt', value:result['jwt']);
+                            final tokenProvider = Provider.of<AuthProvider>(context, listen: false);
+                            tokenProvider.setToken(result['jwt']);
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> PassengerListView()));
                           },
                           style: ElevatedButton.styleFrom(
                               primary: Colors.yellow,

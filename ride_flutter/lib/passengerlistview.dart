@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './passengerdetailspage.dart';
+import 'auth.dart';
 
 class RiderRequest{
   late String ride_id;
@@ -70,12 +72,12 @@ class _PassengerListViewState extends State<PassengerListView> with SingleTicker
     '08/25 07:00  Jitin  Westmount Village  24',
   ];
   late Future<List<RiderRequest>> riders;
+  late String driver='';
 
   @override
   void initState() {
     super.initState();
     // Make the API call here
-    riders = getRidersList();
     print("hellooooo");
     print(riders);
   }
@@ -96,9 +98,49 @@ class _PassengerListViewState extends State<PassengerListView> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    print("AuthProvider, $authProvider");
+    print(authProvider.token);
+    if (authProvider.token != null) {
+      print("hellllo121212");
+      http.get(Uri.parse('http://10.0.2.2:8000/api/user'), headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': authProvider.token.toString()
+      }).then((response) {
+        if (response.statusCode == 200) {
+          final responseData = response.body;
+          final result = json.decode(responseData);
+
+          print("1111111111111111111111");
+          print(responseData);
+          print(json.decode(responseData)['first_name']);
+          final driver = result['first_name'];
+          // Do something with the response data
+        } else {
+          print('Request failed with status: ${response.statusCode}');
+        }
+      }).catchError((error) {
+        print('An error occurred: $error');
+      });
+      print("hhhhhhhhhhhhhhhhhhhhhhhhh");
+
+      // if (response.statusCode == 200) {
+      //   // Handle successful response
+      // } else {
+      //   // Handle error
+      // }
+      // Token is not present, handle accordingly (e.g., redirect to login)
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Driver Details'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('$driver'),
+          ),
+        ],
       ),
       body: Center(
         child: FutureBuilder<List<RiderRequest>>(

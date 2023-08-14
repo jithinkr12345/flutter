@@ -51,7 +51,7 @@ class _RegisterPageState extends State<Register>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 40,),
-              Image.asset('images/logo.png',
+              Image.asset('assets/images/logo.png',
               height: 100,
               ),
               SizedBox(height: 20,),
@@ -184,7 +184,7 @@ class _RegisterPageState extends State<Register>{
                             print(_emailtextController.text);
                             print(_phonetextController.text);
                             print(_usertypetextController .text);
-                            var url = "http://127.0.0.1:8000/api/users/register";
+                            var url = "http://10.0.2.2:8000/api/users/register";
                             final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json'}, body: json.encode({
                               "username": _emailtextController.text,
                               "password": _passwordtextController.text,
@@ -194,6 +194,7 @@ class _RegisterPageState extends State<Register>{
                               "last_name": _lnametextController.text,
                               "user_type": _usertypetextController .text
                             }));
+                            print(response);
                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Login()));
                           },
                           style: ElevatedButton.styleFrom(
