@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:ride_flutter/ridedetails.dart';
 
 // class PassengerDetailsPage extends StatelessWidget {
 //   final String passengerName;
@@ -64,6 +65,8 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> with Single
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Passenger Details'),
@@ -74,10 +77,17 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> with Single
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(padding: EdgeInsets.all(8.0),
-            child: Text('Pick up Location: '),
+            child: Text(
+              'Pick up Location: ',
+              overflow: TextOverflow.fade,
+            ),
             ),
             Padding(padding: EdgeInsets.all(8.0),
-              child: Text(widget.pickup),
+              child: Container(
+                width: 250,
+                child: Text(widget.pickup,
+                  overflow: TextOverflow.fade,),
+              ),
             ),
           ],
         ),
@@ -85,10 +95,15 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> with Single
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(padding: EdgeInsets.all(8.0),
-              child: Text('Drop Off Location: '),
+              child: Text('Drop Off Location: ',
+                overflow: TextOverflow.fade,),
             ),
             Padding(padding: EdgeInsets.all(8.0),
-              child: Text(widget.dropoff),
+              child: Container(
+                width: 250,
+                child: Text(widget.dropoff,
+                  overflow: TextOverflow.fade,),
+              ),
             ),
           ],
         ),
@@ -126,24 +141,25 @@ class _PassengerDetailsPageState extends State<PassengerDetailsPage> with Single
           ],
         ),
         ElevatedButton(onPressed: (){
-          _trackme();
+          // _trackme();
           _update_riderequest();
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> MapSample(pickup: widget.pickup, dropoff: widget.dropoff)));
         }, child: Text('Accept Ride'))
       ],),);
   }
-  Future<void> _trackme()async{
-    Timer.periodic(Duration(seconds: 3), (timer)async{
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      print("Latitude: ${position.latitude}");
-      print("Longitude: ${position.longitude}");
-      var url = "http://127.0.0.1:8000/api/rider/map";
-      final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST'}, body: json.encode({'driver_update_id': 1, 'driver_id': 1, 'longitude': position.longitude, 'latitude': position.latitude}));
-    });
-  }
+  // Future<void> _trackme()async{
+  //   Timer.periodic(Duration(seconds: 3), (timer)async{
+  //     Position position = await Geolocator.getCurrentPosition(
+  //         desiredAccuracy: LocationAccuracy.high);
+  //     print("Latitude: ${position.latitude}");
+  //     print("Longitude: ${position.longitude}");
+  //     var url = "http://10.0.2.2:8000/api/rider/map";
+  //     final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST'}, body: json.encode({'driver_update_id': 1, 'driver_id': 1, 'longitude': position.longitude, 'latitude': position.latitude}));
+  //   });
+  // }
 
   Future<void> _update_riderequest()async{
-    var update_url = "http://localhost:8000/api/rider/request";
+    var update_url = "http://10.0.2.2:8000/api/rider/request";
     final update_response = await http.put(Uri.parse(update_url),headers: {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST'}, body: json.encode({
       "ride_id": widget.ride_id,
       "amount": widget.amount,

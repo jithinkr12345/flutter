@@ -26,7 +26,7 @@ class Welcome extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 50,),
-              Image.asset('images/logo.png',
+              Image.asset('assets/images/logo.png',
               height: 100,
               ),
               SizedBox(height: 20,),

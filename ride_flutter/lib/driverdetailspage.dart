@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:html';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 
@@ -102,90 +102,90 @@ class DriverDetailsPage extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: 16.0),
-                      ElevatedButton(
-                        child: Text('Upload Photo'),
-                        onPressed: () async {
-                          FilePickerResult? result = await FilePicker.platform
-                              .pickFiles();
-
-                          if (result != null) {
-                            PlatformFile file = result.files.first;
-
-                            List<File> files = result.files.cast<File>();
-                            // Uncomment this code when connect with database
-
-                            //   for (var file in files) {
-                          //     String fileName = file.name;
-                          //     // String filePath = file.path;
-                          //     // int fileSize = file.size;
-                          //     // String fileExtension = file.extension;
-                          //
-                          //     // Add your logic to upload the file to the server or perform any other operations
-                          //   }
-                          //   else
-                          //   {
-                          //   // User canceled the file picker
-                          // }
-                        }
-                        }
-                       ),
+                      // ElevatedButton(
+                      //   child: Text('Upload Photo'),
+                      //   onPressed: () async {
+                      //     FilePickerResult? result = await FilePicker.platform
+                      //         .pickFiles();
+                      //
+                      //     if (result != null) {
+                      //       PlatformFile file = result.files.first;
+                      //
+                      //       List<File> files = result.files.cast<File>();
+                      //       // Uncomment this code when connect with database
+                      //
+                      //       //   for (var file in files) {
+                      //     //     String fileName = file.name;
+                      //     //     // String filePath = file.path;
+                      //     //     // int fileSize = file.size;
+                      //     //     // String fileExtension = file.extension;
+                      //     //
+                      //     //     // Add your logic to upload the file to the server or perform any other operations
+                      //     //   }
+                      //     //   else
+                      //     //   {
+                      //     //   // User canceled the file picker
+                      //     // }
+                      //   }
+                      //   }
+                      //  ),
 
                       SizedBox(height: 16.0),
-                      ElevatedButton(
-                          child: Text('Upload Drivers License'),
-                          onPressed: () async {
-                            FilePickerResult? result = await FilePicker.platform
-                                .pickFiles();
-
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-
-                              List<File> files = result.files.cast<File>();
-                              // Uncomment this code when connect with database
-
-                              //   for (var file in files) {
-                            //     String fileName = file.name;
-                            //     String filePath = file.path;
-                            //     int fileSize = file.size;
-                            //     String fileExtension = file.extension;
-                            //
-                            //     // Add your logic to upload the file to the server or perform any other operations
-                            //   }
-                            // else
-                            // {
-                            //   // User canceled the file picker
-                            // }
-                          }
-                            }
-                      ),
+                      // ElevatedButton(
+                      //     child: Text('Upload Drivers License'),
+                      //     onPressed: () async {
+                      //       FilePickerResult? result = await FilePicker.platform
+                      //           .pickFiles();
+                      //
+                      //       if (result != null) {
+                      //         PlatformFile file = result.files.first;
+                      //
+                      //         List<File> files = result.files.cast<File>();
+                      //         // Uncomment this code when connect with database
+                      //
+                      //         //   for (var file in files) {
+                      //       //     String fileName = file.name;
+                      //       //     String filePath = file.path;
+                      //       //     int fileSize = file.size;
+                      //       //     String fileExtension = file.extension;
+                      //       //
+                      //       //     // Add your logic to upload the file to the server or perform any other operations
+                      //       //   }
+                      //       // else
+                      //       // {
+                      //       //   // User canceled the file picker
+                      //       // }
+                      //     }
+                      //       }
+                      // ),
                       SizedBox(height: 16.0),
-                      ElevatedButton(
-                          child: Text('Upload Vehicle Insurance'),
-                          onPressed: () async {
-                            FilePickerResult? result = await FilePicker.platform
-                                .pickFiles();
-
-                            if (result != null) {
-                              PlatformFile file = result.files.first;
-
-                              List<File> files = result.files.cast<File>();
-                              // Uncomment this code when connect with database
-
-                            //   for (var file in files) {
-                            //     String fileName = file.name;
-                            //     String filePath = file.path;
-                            //     int fileSize = file.size;
-                            //     String fileExtension = file.extension;
-                            //
-                            //     // Add your logic to upload the file to the server or perform any other operations
-                            //   }
-                            // else
-                            // {
-                            //   // User canceled the file picker
-                            // }
-                          }
-                            }
-                      ),
+                      // ElevatedButton(
+                      //     child: Text('Upload Vehicle Insurance'),
+                      //     onPressed: () async {
+                      //       FilePickerResult? result = await FilePicker.platform
+                      //           .pickFiles();
+                      //
+                      //       if (result != null) {
+                      //         PlatformFile file = result.files.first;
+                      //
+                      //         List<File> files = result.files.cast<File>();
+                      //         // Uncomment this code when connect with database
+                      //
+                      //       //   for (var file in files) {
+                      //       //     String fileName = file.name;
+                      //       //     String filePath = file.path;
+                      //       //     int fileSize = file.size;
+                      //       //     String fileExtension = file.extension;
+                      //       //
+                      //       //     // Add your logic to upload the file to the server or perform any other operations
+                      //       //   }
+                      //       // else
+                      //       // {
+                      //       //   // User canceled the file picker
+                      //       // }
+                      //     }
+                      //       }
+                      // ),
 
                       SizedBox(height: 16.0),
                       ElevatedButton(

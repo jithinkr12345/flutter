@@ -32,7 +32,7 @@ class RiderRequest{
 
 Future<List<RiderRequest>> getRidersList() async {
   final response = await http.get(
-    Uri.parse('http://localhost:8000/api/rider/request'),
+    Uri.parse('http://10.0.2.2:8000/api/rider/request'),
   );
   if (response.statusCode == 200) {
     var jsonResponse = json.decode(response.body);

@@ -38,7 +38,7 @@ class _LoginPageState extends State<Login>{
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 40,),
-              Image.asset('images/logo.png',
+              Image.asset('assets/images/logo.png',
               height: 100,),
               SizedBox(height: 20,),
               Text('Login Page',
@@ -92,7 +92,7 @@ class _LoginPageState extends State<Login>{
                           ),
                           onPressed: () async {
                             print("---------g---gg--");
-                            var url = "http://127.0.0.1:8000/api/users/login";
+                            var url = "http://10.0.2.2:8000/api/users/login";
                             final response = await http.post(Uri.parse(url),headers: {'Content-Type': 'application/json'}, body: json.encode({
                               "username": _usertextController.text,
                               "password": _passwordtextController.text
